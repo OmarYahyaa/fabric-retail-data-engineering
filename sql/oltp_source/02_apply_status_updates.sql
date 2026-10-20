@@ -35,10 +35,9 @@ WITH (
 );
 GO
 
--- Batch 4: Apply status changes to the matching invoice headers
--- OldStatus acts as a safeguard so an update is applied only when
--- the current source status matches the expected previous status.
--- LastModifiedAt records when the source transaction was changed.
+-- Batch 4: Apply simulated status changes only when the current
+    -- invoice status matches the event's expected OldStatus.
+-- This also prevents reapplying an already processed update.
 UPDATE h
 SET
     h.OrderStatus = u.NewStatus,
